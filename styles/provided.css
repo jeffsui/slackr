@@ -1,9 +1,176 @@
-
 /* base styles, feel free to edit */
-html, body {
-    margin: 0;
-    padding: 0;
-    background-color: #fafafa;
-    height: 100%;
-    font-family: -apple-system, 'Open Sans', 'Helvetica Neue', sans-serif;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fafafa;
+  height: 100%;
+  font-family: -apple-system, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.banner{
+  display: flex;
+  align-items: center;
+}
+h1 {
+  text-align: center;
+  margin: 0 auto;
+}
+footer {
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   text-align: center;
+}
+/* contain begin */
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  height: 100vh;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  display: none;
+}
+
+#loginPage {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: slateblue;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+}
+
+#registerPage {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: slateblue;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+}
+
+#chatPage {
+  max-width: 400px;
+  background-color: slateblue;
+  display: flex;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  color: white;
+  text-align: left;
+  margin-bottom: 5px;
+  font-style: italic;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  outline: none;
+}
+.form-group input:focus {
+  box-shadow: 1px 2px 3px purple;
+}
+.form-group button {
+  width: 100%;
+  padding: 10px;
+  background-color: purple;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 20px;
+}
+.form-group button:hover {
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+a {
+  color: gray;
+}
+a:link {
+  text-decoration: none;
+}
+a:hover {
+  color: white;
+}
+.register a {
+  font-size: 25px;
+}
+.register button {
+  width: 100px;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #ccc;
+  border: none;
+}
+.register button:hover {
+  background-color: gray;
+  color: ghostwhite;
+}
+
+#chatPage.logged-in,
+#registerPage.registered {
+  display: flex;
+}
+
+/* 模态框样式 */
+.outer{
+  width: 100%;
+  height: 700px;
+  background-color: rgba(76,131,221,0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.inner{
+  width: 500px;
+  height: 300px;
+  background-color: skyblue;
+  border-radius: 20px;
+  position: absolute;
+  top: 50%;
+  margin-top: -150px;
+  left: 50%;
+  margin-left: -200px;
+}
+.cancel{
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  right: -25px;
+  top: -25px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 40px;
+}
+@media (max-width: 600px) {
+  /* 响应式样式 */
+  #container {
+    max-width: 100%;
+  }
 }

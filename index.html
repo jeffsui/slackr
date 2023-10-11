@@ -18,6 +18,72 @@
   </header>
   <main role="main">
     <!-- app goes here -->
+    <div id="container">
+      <!-- login -page -->
+      <div id="loginPage" class="page">
+          <!-- 登录页面表单 -->
+          <div class="form-group">
+            <h2>Slackr Login</h2>
+          </div>
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="login_email">Email:</label>
+              <input type="email" id="login_email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+              <label for="login_password">Password:</label>
+              <input type="password" id="login_password" placeholder="Enter your password">
+            </div>
+            <div class="form-group">
+              <button type="submit">Login</button>
+            </div>
+          </form>
+          <div class="register">
+            还没有账号？<button id="registerBtn" type="button">立即注册</button>
+          </div><!-- Login Page End-->
+      </div>
+      <!-- Register page -->
+      <div id="registerPage" class="page">
+          <!-- 注册页面表单 -->
+          <div class="form-group">
+            <h2>Slackr Register</h2>
+          </div>
+          <form id="registerForm">
+            <div class="form-group">
+              <label for="regemail">Email:</label>
+              <input type="email" id="regemail" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+              <label for="regname">Name:</label>
+              <input type="text" id="regname" placeholder="Enter your Name">
+            </div>
+            <div class="form-group">
+              <label for="regpassword">Password:</label>
+              <input type="password" id="regpassword" placeholder="Enter your password">
+            </div>
+            <div class="form-group">
+              <label for="confirmpassword">Confirm Password:</label>
+              <input type="password" id="confirmpassword" placeholder="Confirm your password">
+            </div>
+            <div class="form-group">
+              <button type="submit">Register</button>
+            </div>
+          </form>
+      </div>
+      <!-- chat Page -->
+      <div id="chatPage" class="page">
+          <!-- 聊天页面 -->
+          <div class="channel">
+
+          </div>
+          <div class="message">
+            <div class="form-group">
+              <input type="text" name="message" class="chatMessage">
+              <button>Send Message</button>
+            </div>
+          </div>
+      </div>
+    </div>
   </main>
   <footer>
     <p>&copy; Slackr</p>
