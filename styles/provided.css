@@ -60,9 +60,11 @@ footer {
 }
 
 #chatPage {
-  max-width: 400px;
+  min-width: 400px;
   background-color: slateblue;
   display: flex;
+  flex-direction: row;
+  align-items:start;
 }
 
 .form-group {
@@ -135,38 +137,82 @@ a:hover {
 #registerPage.registered {
   display: flex;
 }
+ul li{
+  list-style: none;
+  height: 30px;
+  line-height: 30px;
+}
+ul li:hover{
+  background-color: rgb(21, 140, 21);
+}
+/* chat page style */
+a{
+  color: white;
+}
+a:link{
+  text-decoration: none;
+}
+#chatPage .channel_title{
+   font-size: 20px;
+   color: white;
+   margin-left: 20px;
+}
+#chatPage .channel{
+  flex: 0 0 200px;
+  align-items:first baseline;
+}
+#chatPage .message{
+  flex: 2;
+  background-color: #ccc;
+}
 
-/* 模态框样式 */
-.outer{
+.card {
+  display: flex;
+  /* width: 400px; */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.card .image {
+  flex: 0 0 50px;
+}
+
+.card .image img {
   width: 100%;
-  height: 700px;
-  background-color: rgba(76,131,221,0.5);
-  position: absolute;
-  top: 0;
-  left: 0;
+  height: 100%;
+  object-fit: cover;
 }
-.inner{
-  width: 500px;
-  height: 300px;
-  background-color: skyblue;
-  border-radius: 20px;
-  position: absolute;
-  top: 50%;
-  margin-top: -150px;
-  left: 50%;
-  margin-left: -200px;
+
+.card .image img:hover {
+  box-shadow: 1px 1px 4px purple;
 }
-.cancel{
-  width: 50px;
-  height: 50px;
-  background-color: white;
-  border-radius: 50%;
-  position: absolute;
-  right: -25px;
-  top: -25px;
-  text-align: center;
-  line-height: 50px;
-  font-size: 40px;
+
+.card .content {
+  flex: 1;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card .content .info {
+  display: flex;
+  justify-content:flex-start;
+  align-items:flex-start;
+  margin-bottom: 10px;
+}
+
+.card .content .text {
+  font-size: 14px;
+}
+
+.card .content .info .username{
+  font-size: 16px;
+  font-weight: bold;
+}
+.card .content .info .time{
+  padding-left: 3em;
 }
 @media (max-width: 600px) {
   /* 响应式样式 */

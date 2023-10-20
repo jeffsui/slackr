@@ -49,6 +49,7 @@ loginForm.addEventListener("submit", function (e) {
           console.log("success:", data);
           //tocken save sessionStorage
           sessionStorage.setItem("token",data.token);
+
           showPage("chatPage");
         }
       });
@@ -114,6 +115,7 @@ function showPage(pageId) {
   if (pageId === "chatPage") {
     chatPage.classList.add("logged-in");
     registerPage.classList.remove("registered");
+    loadChatPage();
   } else if (pageId === "registerPage") {
     chatPage.classList.remove("logged-in");
     registerPage.classList.add("registered");
@@ -121,4 +123,74 @@ function showPage(pageId) {
     chatPage.classList.remove("logged-in");
     registerPage.classList.remove("registered");
   }
+}
+/**
+ * 加载chatPage
+ */
+function loadChatPage(){
+    //获取token值
+    const token = sessionStorage.getItem("token");
+    console.log(token);
+    //请求后台,获取所有的channel列表
+    const apiCall = (path,token) => {
+      fetch("http://localhost:5005/" + path, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.error) {
+            //请求失败,服务器给你返回的数据
+            alert(data.error);
+          } else {
+            //查询chanel
+            console.log("success:", data);
+            if(data.channels.length>0){
+              //过滤 private:false的 channel列表
+              const publicChannelObj = data.channels.filter((item)=>item.private == false);
+              console.log(publicChannelObj);
+              publicChannelObj.forEach((element)=>{
+                const li = document.createElement('li');
+                const publicChannel = document.querySelector("#public_channel ul");
+                const ahref = document.createElement("a");
+                const linkText = document.createTextNode(element.name);
+                ahref.appendChild(linkText);
+                li.appendChild(ahref);
+                publicChannel.appendChild(li);
+              })
+              //过滤private:true的channel列表
+              const privateChannelObj = data.channels.filter((item)=>item.private==true);
+              const privateChannel = document.querySelector("#private_channel ul");
+              //如果 私有channel length>0 也用列表形式显示;否则 创建一个按钮 Add Channel
+              if(privateChannelObj>0){
+                privateChannelObj.forEach((element)=>{
+                  const li = document.createElement('li');
+
+                  const ahref = document.createElement("a");
+                  const linkText = document.createTextNode(element.name);
+                  ahref.appendChild(linkText);
+                  li.appendChild(ahref);
+                  privateChannel.appendChild(li);
+                })
+              }else{
+                  const addChannelBtn = document.createElement("button");
+                  addChannelBtn.className= "add_channel_btn";
+                  const btnTxt = document.createTextNode("Add Channel");
+                  addChannelBtn.appendChild(btnTxt);
+                  privateChannel.appendChild(addChannelBtn);
+                  //没有私有channel,允许添加一个channel
+                  addChannelBtn.onclick = function(){
+                    alert("添加channel");
+                  }
+
+              }
+            }
+          }
+        });
+    };
+    apiCall('channel',token);
+
 }

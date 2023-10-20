@@ -21,60 +21,201 @@
     <div id="container">
       <!-- login -page -->
       <div id="loginPage" class="page">
-          <!-- 登录页面表单 -->
+        <!-- 登录页面表单 -->
+        <div class="form-group">
+          <h2>Slackr Login</h2>
+        </div>
+        <form id="loginForm">
           <div class="form-group">
-            <h2>Slackr Login</h2>
+            <label for="login_email">Email:</label>
+            <input type="email" id="login_email" placeholder="Enter your email">
           </div>
-          <form id="loginForm">
-            <div class="form-group">
-              <label for="login_email">Email:</label>
-              <input type="email" id="login_email" placeholder="Enter your email">
-            </div>
-            <div class="form-group">
-              <label for="login_password">Password:</label>
-              <input type="password" id="login_password" placeholder="Enter your password">
-            </div>
-            <div class="form-group">
-              <button type="submit">Login</button>
-            </div>
-          </form>
-          <div class="register">
-            还没有账号？<button id="registerBtn" type="button">立即注册</button>
-          </div><!-- Login Page End-->
+          <div class="form-group">
+            <label for="login_password">Password:</label>
+            <input type="password" id="login_password" placeholder="Enter your password">
+          </div>
+          <div class="form-group">
+            <button type="submit">Login</button>
+          </div>
+        </form>
+        <div class="register">
+          还没有账号？<button id="registerBtn" type="button">立即注册</button>
+        </div><!-- Login Page End-->
       </div>
       <!-- Register page -->
       <div id="registerPage" class="page">
-          <!-- 注册页面表单 -->
+        <!-- 注册页面表单 -->
+        <div class="form-group">
+          <h2>Slackr Register</h2>
+        </div>
+        <form id="registerForm">
           <div class="form-group">
-            <h2>Slackr Register</h2>
+            <label for="regemail">Email:</label>
+            <input type="email" id="regemail" placeholder="Enter your email">
           </div>
-          <form id="registerForm">
-            <div class="form-group">
-              <label for="regemail">Email:</label>
-              <input type="email" id="regemail" placeholder="Enter your email">
-            </div>
-            <div class="form-group">
-              <label for="regname">Name:</label>
-              <input type="text" id="regname" placeholder="Enter your Name">
-            </div>
-            <div class="form-group">
-              <label for="regpassword">Password:</label>
-              <input type="password" id="regpassword" placeholder="Enter your password">
-            </div>
-            <div class="form-group">
-              <label for="confirmpassword">Confirm Password:</label>
-              <input type="password" id="confirmpassword" placeholder="Confirm your password">
-            </div>
-            <div class="form-group">
-              <button type="submit">Register</button>
-            </div>
-          </form>
+          <div class="form-group">
+            <label for="regname">Name:</label>
+            <input type="text" id="regname" placeholder="Enter your Name">
+          </div>
+          <div class="form-group">
+            <label for="regpassword">Password:</label>
+            <input type="password" id="regpassword" placeholder="Enter your password">
+          </div>
+          <div class="form-group">
+            <label for="confirmpassword">Confirm Password:</label>
+            <input type="password" id="confirmpassword" placeholder="Confirm your password">
+          </div>
+          <div class="form-group">
+            <button type="submit">Register</button>
+          </div>
+        </form>
       </div>
       <!-- chat Page -->
       <div id="chatPage" class="page">
-          <!-- 聊天页面 -->
-          <div class="channel">
+        <!-- 聊天页面 -->
+        <div class="channel">
+          <div id="public_channel">
+            <div class="channel_title">Channels(Public)</div>
+            <ul>
+              <!-- <li><span style="color: white;padding-right: 5px;">#</span><a href="" class="channal_link"
+                  data-channa-id=""><span>pens</span></a></li>
+              <li><span style="color: white;padding-right: 5px;">#</span><a href="" class="channal_link"
+                  data-channa-id=""><span>posts</span></a></li>
+              <li><span style="color: white;padding-right: 5px;">#</span><a href="" class="channal_link"
+                  data-channa-id=""><span>random</span></a></li> -->
+            </ul>
+          </div>
+          <div id="private_channel">
+            <div class="channel_title">Channels(Private)</div>
+            <ul>
+              <!-- <li><span style="color: white;padding-right: 5px;">#</span><a href="" class="channal_link"
+                  data-channa-id=""><span>pens</span></a></li>
+              <li><span style="color: white;padding-right: 5px;">#</span><a href="" class="channal_link"
+                  data-channa-id=""><span>posts</span></a></li>
+              <li><span style="color: white;padding-right: 5px;">#</span><a href="" class="channal_link"
+                  data-channa-id=""><span>random</span></a></li> -->
+            </ul>
+          </div>
+        </div>
+        <!-- 聊天页面 -->
+        <div class="message">
+          <div class="card">
+            <div class="image">
+              <img src="https://secure.meetupstatic.com/photos/event/4/1/0/e/600_440836654.jpeg" alt="卡片图片">
+            </div>
+            <div class="content">
+              <div class="info">
+                <span class="username">Ethan</span>
+                <span class="time">9:30 AM</span>
+              </div>
+              <div class="message-content">
+                Morning everyone!
+              </div>
+            </div>
+          </div>
 
+          <div class="card">
+            <div class="image">
+              <img src="https://secure.meetupstatic.com/photos/event/4/1/0/e/600_440836654.jpeg" alt="卡片图片">
+            </div>
+            <div class="content">
+              <div class="info">
+                <span class="username">Olivia</span>
+                <span class="time">9:30 AM</span>
+              </div>
+              <div class="message-content">
+                Yooooo
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="image">
+              <img src="https://secure.meetupstatic.com/photos/event/4/1/0/e/600_440836654.jpeg" alt="卡片图片">
+            </div>
+            <div class="content">
+              <div class="info">
+                <span class="username">Liam</span>
+                <span class="time">9:30 AM</span>
+              </div>
+              <div class="message-content">
+                Dude, I found this awesome pen
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="image">
+              <img src="https://secure.meetupstatic.com/photos/event/4/1/0/e/600_440836654.jpeg" alt="卡片图片">
+            </div>
+            <div class="content">
+              <div class="info">
+                <span class="username">Emma</span>
+                <span class="time">9:30 AM</span>
+              </div>
+              <div class="message-content">
+                One sec, going to find the link
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="image">
+              <img src="https://secure.meetupstatic.com/photos/event/4/1/0/e/600_440836654.jpeg" alt="卡片图片">
+            </div>
+            <div class="content">
+              <div class="info">
+                <span class="username">Noah</span>
+                <span class="time">9:30 AM</span>
+              </div>
+              <div class="message-content">
+                Got it! Slack Chat CSS
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="image">
+              <img src="https://secure.meetupstatic.com/photos/event/4/1/0/e/600_440836654.jpeg" alt="卡片图片">
+            </div>
+            <div class="content">
+              <div class="info">
+                <span class="username">Ava</span>
+                <span class="time">9:30 AM</span>
+              </div>
+              <div class="message-content">
+                Sick! I'm so hearting that and posting on Twitter
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="image">
+              <img src="https://secure.meetupstatic.com/photos/event/4/1/0/e/600_440836654.jpeg" alt="卡片图片">
+            </div>
+            <div class="content">
+              <div class="info">
+                <span class="username">Lucas</span>
+                <span class="time">9:30 AM</span>
+              </div>
+              <div class="message-content">
+                Sick! I'm so hearting that and posting on Twitter
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="image">
+              <img src="https://secure.meetupstatic.com/photos/event/4/1/0/e/600_440836654.jpeg" alt="卡片图片">
+            </div>
+            <div class="content">
+              <div class="info">
+                <span class="username">Isabella</span>
+                <span class="time">9:30 AM</span>
+              </div>
+              <div class="message-content">
+                Sick! I'm so hearting that and posting on Twitter
+              </div>
+            </div>
           </div>
           <div class="message">
             <div class="form-group">
@@ -82,8 +223,8 @@
               <button>Send Message</button>
             </div>
           </div>
+        </div>
       </div>
-    </div>
   </main>
   <footer>
     <p>&copy; Slackr</p>
