@@ -47,6 +47,8 @@ loginForm.addEventListener("submit", function (e) {
         } else {
           //验证通过
           console.log("success:", data);
+          //tocken save sessionStorage
+          sessionStorage.setItem("token",data.token);
           showPage("chatPage");
         }
       });
