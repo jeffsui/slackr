@@ -7,7 +7,10 @@ console.log("Let's go!");
 const registerBtn = document.querySelector("#registerBtn");
 const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
+const mymodelForm = document.querySelector(".mymodelForm");
 
+let modal = document.getElementById("myModal");
+let closeBtn = document.querySelector(".close");
 console.log(registerBtn);
 
 //第一次访问页面 显示的是loginPage
@@ -23,8 +26,7 @@ loginForm.addEventListener("submit", function (e) {
   e.preventDefault();
   const loginEmail = document.querySelector("#login_email");
   const loginPass = document.querySelector("#login_password");
-  console.log({ email: loginEmail.value,
-    password: loginPass.value});
+  console.log({ email: loginEmail.value, password: loginPass.value });
   //后台发送Post请求,邮箱/密码 验证是否正确 fetch /auth/login
   /**
    * 定义请求登录API进行验证(异步请求)
@@ -48,7 +50,7 @@ loginForm.addEventListener("submit", function (e) {
           //验证通过
           console.log("success:", data);
           //tocken save sessionStorage
-          sessionStorage.setItem("token",data.token);
+          sessionStorage.setItem("token", data.token);
 
           showPage("chatPage");
         }
@@ -64,12 +66,12 @@ loginForm.addEventListener("submit", function (e) {
 registerForm.addEventListener("submit", function (e) {
   e.preventDefault();
   //获取表单元素
-  const regEmail  = document.getElementById("regemail");
-  const regName  = document.getElementById("regname");
+  const regEmail = document.getElementById("regemail");
+  const regName = document.getElementById("regname");
   const regPass = document.getElementById("regpassword");
   const confirmPass = document.getElementById("confirmpassword");
 
-  if(regPass.value !== confirmPass.value){
+  if (regPass.value !== confirmPass.value) {
     alert("Confirm password not match!");
   }
   const apiCall = (path, body) => {
@@ -92,13 +94,24 @@ registerForm.addEventListener("submit", function (e) {
         }
       });
   };
-  apiCall("auth/register",{
-    "email": regEmail.value,
-    "password": regPass.value,
-    "name": regName.value
-  })
+  apiCall("auth/register", {
+    email: regEmail.value,
+    password: regPass.value,
+    name: regName.value,
+  });
+});
+/**
+ * 提交新channel 表单submit事件
+ */
+mymodelForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  console.log(e.target);
 
 });
+
+function closeModal() {
+  modal.style.display = "none"; // 隐藏模态框
+}
 
 //实现spa 页面逻辑
 function showPage(pageId) {
@@ -127,70 +140,160 @@ function showPage(pageId) {
 /**
  * 加载chatPage
  */
-function loadChatPage(){
-    //获取token值
-    const token = sessionStorage.getItem("token");
-    console.log(token);
-    //请求后台,获取所有的channel列表
-    const apiCall = (path,token) => {
-      fetch("http://localhost:5005/" + path, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.error) {
-            //请求失败,服务器给你返回的数据
-            alert(data.error);
-          } else {
-            //查询chanel
-            console.log("success:", data);
-            if(data.channels.length>0){
-              //过滤 private:false的 channel列表
-              const publicChannelObj = data.channels.filter((item)=>item.private == false);
-              console.log(publicChannelObj);
-              publicChannelObj.forEach((element)=>{
-                const li = document.createElement('li');
-                const publicChannel = document.querySelector("#public_channel ul");
+function loadChatPage() {
+  //获取token值
+  const token = sessionStorage.getItem("token");
+  console.log(token);
+  //请求后台,获取所有的channel列表
+  const apiCall = (path, token) => {
+    fetch("http://localhost:5005/" + path, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          //请求失败,服务器给你返回的数据
+          alert(data.error);
+        } else {
+          //查询chanel
+          console.log("success:", data);
+          if (data.channels.length > 0) {
+            //过滤 private:false的 channel列表
+            const publicChannelObj = data.channels.filter(
+              (item) => item.private == false
+            );
+            console.log(publicChannelObj);
+            publicChannelObj.forEach((element) => {
+              const li = document.createElement("li");
+              const publicChannel =
+                document.querySelector("#public_channel ul");
+              const ahref = document.createElement("a");
+              const linkText = document.createTextNode(element.name);
+              ahref.appendChild(linkText);
+              li.appendChild(ahref);
+              publicChannel.appendChild(li);
+              //渲染 message public channel 基本信息
+              const messageChannelInfo = document.querySelector(
+                ".message .channel_detail .channel_title_info"
+              );
+              const channelTitleInfo = document.createElement("span");
+              const channelTitleInfoTxt = document.createTextNode(
+                "#" + data.channels[0].name
+              );
+              channelTitleInfo.appendChild(channelTitleInfoTxt);
+              messageChannelInfo.appendChild(channelTitleInfo);
+
+              loadMessage(data.channels[0].id);
+              console.log("load message 完毕");
+            });
+            //过滤private:true的channel列表
+            const privateChannelObj = data.channels.filter(
+              (item) => item.private == true
+            );
+            const privateChannel = document.querySelector(
+              "#private_channel ul"
+            );
+            //如果 私有channel length>0 也用列表形式显示;否则 创建一个按钮 Add Channel
+            if (privateChannelObj > 0) {
+              privateChannelObj.forEach((element) => {
+                const li = document.createElement("li");
+
                 const ahref = document.createElement("a");
                 const linkText = document.createTextNode(element.name);
                 ahref.appendChild(linkText);
                 li.appendChild(ahref);
-                publicChannel.appendChild(li);
-              })
-              //过滤private:true的channel列表
-              const privateChannelObj = data.channels.filter((item)=>item.private==true);
-              const privateChannel = document.querySelector("#private_channel ul");
-              //如果 私有channel length>0 也用列表形式显示;否则 创建一个按钮 Add Channel
-              if(privateChannelObj>0){
-                privateChannelObj.forEach((element)=>{
-                  const li = document.createElement('li');
-
-                  const ahref = document.createElement("a");
-                  const linkText = document.createTextNode(element.name);
-                  ahref.appendChild(linkText);
-                  li.appendChild(ahref);
-                  privateChannel.appendChild(li);
-                })
-              }else{
-                  const addChannelBtn = document.createElement("button");
-                  addChannelBtn.className= "add_channel_btn";
-                  const btnTxt = document.createTextNode("Add Channel");
-                  addChannelBtn.appendChild(btnTxt);
-                  privateChannel.appendChild(addChannelBtn);
-                  //没有私有channel,允许添加一个channel
-                  addChannelBtn.onclick = function(){
-                    alert("添加channel");
-                  }
-
-              }
+                privateChannel.appendChild(li);
+              });
+            } else {
+              const addChannelBtn = document.createElement("button");
+              addChannelBtn.className = "add_channel_btn";
+              const btnTxt = document.createTextNode("Add Channel");
+              addChannelBtn.appendChild(btnTxt);
+              privateChannel.appendChild(addChannelBtn);
+              //没有私有channel,允许添加一个channel
+              addChannelBtn.addEventListener(
+                "click",
+                (e) => {
+                  showModelDiv();
+                },
+                true
+              );
+              modal = document.getElementById("myModal");
+              closeBtn = document.querySelector(".close");
+              console.log("closeBtn", closeBtn);
+              closeBtn.addEventListener(
+                "click",
+                (e) => {
+                  console.log("关闭窗口", e.target);
+                  closeModal();
+                },
+                true
+              );
             }
           }
-        });
-    };
-    apiCall('channel',token);
+        }
+      });
+  };
+  apiCall("channel", token);
+}
+/**
+ * 加载message信息
+ */
+function loadMessage(channal_id) {
+  const token = sessionStorage.getItem("token");
+  //查询所有频道返回的数据中没有createdAt信息,所以需要用channelId查询详细内容
+  const apiCall = (path, token) => {
+    fetch("http://localhost:5005/" + path, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          //请求失败,服务器给你返回的数据
+          alert(data.error);
+        } else {
+          console.log("channel info", data);
+          const messageChannelDetailInfo = document.querySelector(
+            ".message .channel_detail .channel_detail_info"
+          );
+          const channelDetailInfo = document.createElement("span");
 
+          const createdAt = data.createdAt;
+          console.log("createdAt", createdAt);
+          const channal_date = new Date(createdAt);
+          const options = {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          };
+          const formattedDate = channal_date.toLocaleDateString(
+            undefined,
+            options
+          );
+          const channelDetailInfoContent = `You created this channel on ${formattedDate}. This is the very beginning of the #${data.name}.`;
+          console.log(channelDetailInfoContent);
+          const channelDetailInfoContentTxt = document.createTextNode(
+            channelDetailInfoContent
+          );
+          channelDetailInfo.appendChild(channelDetailInfoContentTxt);
+          messageChannelDetailInfo.appendChild(channelDetailInfo);
+        }
+      });
+  };
+  apiCall("channel/" + channal_id, token);
+}
+
+function showModelDiv() {
+  openModal();
+}
+function openModal() {
+  modal.style.display = "block"; // 显示模态框
 }

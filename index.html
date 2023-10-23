@@ -99,6 +99,10 @@
         </div>
         <!-- 聊天页面 -->
         <div class="message">
+          <div class="channel_detail">
+            <div class="channel_title_info"></div>
+            <div class="channel_detail_info"></div>
+          </div>
           <div class="card">
             <div class="image">
               <img src="https://secure.meetupstatic.com/photos/event/4/1/0/e/600_440836654.jpeg" alt="卡片图片">
@@ -229,6 +233,41 @@
   <footer>
     <p>&copy; Slackr</p>
   </footer>
+  <form class="mymodelForm" action="" method="post">
+    <div id="myModal" class="modal">
+      <div class="model_container">
+        <div class="add_channel">
+          <form>
+            <div class="form-group">
+              <label for="channelId">Channel ID:</label>
+              <input type="text" id="channelId" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+              <label for="channelName">Channel Name:</label>
+              <input type="text" id="channelName" placeholder="Enter your Name">
+            </div>
+            <div class="form-group">
+              <label for="channelDiscription">Channel Discription:</label>
+              <input type="text" id="channelDiscription" placeholder="Enter your Discription">
+            </div>
+            <div class="form-group">
+              <label for="channelType">Channel Type:</label>
+              <select name="channelType" id="channelType">
+                <option value="public">Public Channel</option>
+                <option value="private">Private Channel</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <button type="submit">Add Channel</button>
+            </div>
+          </form>
+        </div>
+        <div>
+          <button type="button" class="close">x</button>
+        </div>
+      </div>
+    </div>
+  </form>
   <script type="module" src="src/main.js"></script>
 </body>
 

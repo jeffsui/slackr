@@ -16,9 +16,10 @@ h1 {
   margin: 0 auto;
 }
 footer {
+  width: 100%;
    display: flex;
    align-items: center;
-   flex-direction: column;
+   flex-direction: row;
    text-align: center;
 }
 /* contain begin */
@@ -165,7 +166,15 @@ a:link{
   flex: 2;
   background-color: #ccc;
 }
-
+.message .channel_title_info span{
+  font-weight: 700;
+  font-size: 30px;
+  padding: 100px 0 5px 10px;
+}
+.message .channel_detail_info{
+  font-size: 16px;
+  padding-left: 10px;
+}
 .card {
   display: flex;
   /* width: 400px; */
@@ -214,6 +223,96 @@ a:link{
 .card .content .info .time{
   padding-left: 3em;
 }
+
+  /* 模态框外层容器 */
+  .modal {
+    display: none;
+    /* 默认隐藏模态框 */
+    position: fixed;
+    /* 固定定位 */
+    z-index: 1;
+    /* 设置堆叠顺序 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    /* 允许滚动 */
+    background-color: rgba(0, 0, 0, 0.2);
+    /* 背景颜色与透明度 */
+}
+.model_container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add_channel {
+    flex: 1;
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.form-group button {
+    width: 100%;
+    padding: 10px;
+    background-color: purple;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+ /* 关闭按钮 */
+ .close {
+    color: #aaa;
+    align-self: flex-end;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+}
+main{
+  margin: 0 auto;
+}
+
 @media (max-width: 600px) {
   /* 响应式样式 */
   #container {
