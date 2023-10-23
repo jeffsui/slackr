@@ -159,7 +159,7 @@ a:link{
    margin-left: 20px;
 }
 #chatPage .channel{
-  flex: 0 0 200px;
+  flex: 0 0 300px;
   align-items:first baseline;
 }
 #chatPage .message{

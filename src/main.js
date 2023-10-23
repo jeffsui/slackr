@@ -106,7 +106,39 @@ registerForm.addEventListener("submit", function (e) {
 mymodelForm.addEventListener("submit", (e) => {
   e.preventDefault();
   console.log(e.target);
+  //获取新增表单元素
+  let token = sessionStorage.getItem("token");
+  const channelId = document.querySelector("#channelId");
+  const channalName = document.querySelector("#channelName");
+  const channalDescritpion = document.querySelector("#channelDiscription");
+  const channelType = document.querySelector("#channelType");
 
+  const apiCall = (path, token, body) => {
+    fetch("http://localhost:5005/" + path, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          //请求失败,服务器给你返回的数据
+          alert(data.error);
+        } else {
+          //注册通过
+          console.log("add channel success:", data);
+          showPage("chatPage");
+        }
+      });
+  };
+  apiCall("channel", token, {
+    name: channalName.value,
+    private: channelType.value !== "private",
+    description: channalDescritpion.value,
+  });
 });
 
 function closeModal() {
@@ -161,6 +193,11 @@ function loadChatPage() {
         } else {
           //查询chanel
           console.log("success:", data);
+          //先移除已经存在的channel节点,否则会重复显示
+          const publicChannel = document.querySelector("#public_channel ul");
+          while (publicChannel.hasChildNodes()) {
+            publicChannel.removeChild(publicChannel.firstChild);
+          }
           if (data.channels.length > 0) {
             //过滤 private:false的 channel列表
             const publicChannelObj = data.channels.filter(
@@ -169,36 +206,36 @@ function loadChatPage() {
             console.log(publicChannelObj);
             publicChannelObj.forEach((element) => {
               const li = document.createElement("li");
-              const publicChannel =
-                document.querySelector("#public_channel ul");
+
               const ahref = document.createElement("a");
               const linkText = document.createTextNode(element.name);
               ahref.appendChild(linkText);
               li.appendChild(ahref);
               publicChannel.appendChild(li);
-              //渲染 message public channel 基本信息
-              const messageChannelInfo = document.querySelector(
-                ".message .channel_detail .channel_title_info"
-              );
-              const channelTitleInfo = document.createElement("span");
-              const channelTitleInfoTxt = document.createTextNode(
-                "#" + data.channels[0].name
-              );
-              channelTitleInfo.appendChild(channelTitleInfoTxt);
-              messageChannelInfo.appendChild(channelTitleInfo);
-
-              loadMessage(data.channels[0].id);
-              console.log("load message 完毕");
             });
+            //渲染 message public channel 基本信息
+            const messageChannelInfo = document.querySelector(
+              ".message .channel_detail .channel_title_info"
+            );
+            const channelTitleInfo = document.createElement("span");
+            const channelTitleInfoTxt = document.createTextNode(
+              "#" + data.channels[0].name
+            );
+            channelTitleInfo.appendChild(channelTitleInfoTxt);
+            messageChannelInfo.appendChild(channelTitleInfo);
+            const privateChannel = document.querySelector(
+              "#private_channel ul"
+            );
+            while (privateChannel.hasChildNodes()) {
+              privateChannel.removeChild(privateChannel.firstChild);
+            }
             //过滤private:true的channel列表
             const privateChannelObj = data.channels.filter(
               (item) => item.private == true
             );
-            const privateChannel = document.querySelector(
-              "#private_channel ul"
-            );
+
             //如果 私有channel length>0 也用列表形式显示;否则 创建一个按钮 Add Channel
-            if (privateChannelObj > 0) {
+            if (privateChannelObj.length > 0) {
               privateChannelObj.forEach((element) => {
                 const li = document.createElement("li");
 
@@ -234,6 +271,8 @@ function loadChatPage() {
                 true
               );
             }
+            loadMessage(data.channels[0].id);
+            console.log("load message 完毕");
           }
         }
       });
