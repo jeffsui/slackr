@@ -8,7 +8,8 @@ const registerBtn = document.querySelector("#registerBtn");
 const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
 const mymodelForm = document.querySelector(".mymodelForm");
-const channalTitle = document.querySelectorAll('.channel_title')
+const channalTitle = document.querySelectorAll('.channel_title');
+const publicChannel = document.querySelector("#public_channel ul");
 
 let modal = document.getElementById("myModal");
 let closeBtn = document.querySelector(".close");
@@ -195,7 +196,7 @@ function loadChatPage() {
           //查询chanel
           console.log("success:", data);
           //先移除已经存在的channel节点,否则会重复显示
-          const publicChannel = document.querySelector("#public_channel ul");
+
           while (publicChannel.hasChildNodes()) {
             publicChannel.removeChild(publicChannel.firstChild);
           }
