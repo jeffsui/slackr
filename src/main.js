@@ -53,8 +53,24 @@ loginForm.addEventListener("submit", function (e) {
           console.log("success:", data);
           //tocken save sessionStorage
           sessionStorage.setItem("token", data.token);
-
-          showPage("chatPage");
+          sessionStorage.setItem("userid", data.userId);
+          return fetch("http://localhost:5005/user/" + data.userId, {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${data.token}`,
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.error) {
+                alert(data.error);
+              } else {
+                console.log("userInfo", data);
+                sessionStorage.setItem("userInfo", data);
+                showPage("chatPage");
+              }
+            });
         }
       });
   };
@@ -205,7 +221,8 @@ function loadChatPage() {
             const publicChannelObj = data.channels.filter(
               (item) => item.private == false
             );
-            console.log(publicChannelObj);
+            console.log("publicChannelObj:", publicChannelObj);
+
             publicChannelObj.forEach((element) => {
               const li = document.createElement("li");
 
@@ -224,8 +241,9 @@ function loadChatPage() {
               ".message .channel_detail .channel_title_info"
             );
             const channelTitleInfo = document.createElement("span");
+            let channelSize = data.channels.length;
             const channelTitleInfoTxt = document.createTextNode(
-              "#" + data.channels[0].name
+              "#" + data.channels[channelSize - 1].name
             );
             channelTitleInfo.appendChild(channelTitleInfoTxt);
             messageChannelInfo.appendChild(channelTitleInfo);
@@ -280,7 +298,8 @@ function loadChatPage() {
                 true
               );
             }
-            loadMessage(data.channels[0].id);
+            channelSize = data.channels.length;
+            loadMessage(data.channels[channelSize - 1].id);
             console.log("load message 完毕");
           }
         }
@@ -291,7 +310,7 @@ function loadChatPage() {
 /**
  * 加载message信息
  */
-function loadMessage(channal_id) {
+function loadMessage(channel_id) {
   const token = sessionStorage.getItem("token");
   //查询所有频道返回的数据中没有createdAt信息,所以需要用channelId查询详细内容
   const apiCall = (path, token) => {
@@ -333,10 +352,28 @@ function loadMessage(channal_id) {
           );
           channelDetailInfo.appendChild(channelDetailInfoContentTxt);
           messageChannelDetailInfo.appendChild(channelDetailInfo);
+          return fetch(
+            "http://localhost:5005/message/" + channel_id + "?start=1",
+            {
+              method: "get",
+              headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.error) {
+                alert(data.error);
+              } else {
+                console.log("message:", data);
+              }
+            });
         }
       });
   };
-  apiCall("channel/" + channal_id, token);
+  apiCall("channel/" + channel_id, token);
 }
 
 function showModelDiv() {
@@ -367,4 +404,36 @@ for (const iter of channalTitle) {
     },
     true
   );
+}
+
+function createMessageCardDiv(channelObj, messageObj) {
+  const card = document.createElement("div");
+  card.className = "card";
+  const image = document.createElement("div");
+  const img = document.createElement("img");
+  img.src =
+    "https://secure.meetupstatic.com/photos/event/4/1/0/e/600_440836654.jpeg";
+  image.appendChild(img);
+  card.appendChild(image);
+  const contentDiv = document.createElement("div");
+  contentDiv.className = "content";
+  const infoDiv = document.createElement("div");
+  infoDiv.className = "info";
+  const spanUsername = document.createElement("span");
+  spanUsername.className = "username";
+  const spanUsernameTxt = document.createTextNode("Ethan");
+  spanUsername.appendChild(spanUsernameTxt);
+  const spanTime = document.createElement("span");
+  spanTime.className = "time";
+  const spanTimeTxt = document.createTextNode(messageObj.sentAt);
+  spanTime.appendChild(spanTimeTxt);
+  infoDiv.appendChild(spanUsername);
+  infoDiv.appendChild(spanTimeDiv);
+  contentDiv.appendChild(infoDiv);
+  const messageContentDiv = document.createElement("div");
+  messageContentDiv.className = "message-content";
+  const messageContentTxt = document.createTextNode("Morning everyone!");
+  messageContentDiv.appendChild(messageContentTxt);
+  contentDiv.appendChild(messageContentDiv);
+  card.appendChild(contentDiv);
 }
