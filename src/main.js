@@ -8,7 +8,7 @@ const registerBtn = document.querySelector("#registerBtn");
 const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
 const mymodelForm = document.querySelector(".mymodelForm");
-const channalTitle = document.querySelectorAll('.channel_title');
+const channalTitle = document.querySelectorAll(".channel_title");
 const publicChannel = document.querySelector("#public_channel ul");
 
 let modal = document.getElementById("myModal");
@@ -210,6 +210,10 @@ function loadChatPage() {
               const li = document.createElement("li");
 
               const ahref = document.createElement("a");
+              //通过绑定自定义 data-xx属性获取channel 属性,方便后面修改 和 点击事件触发查询
+              ahref.dataset.channelId = element.id;
+              ahref.dataset.channelName = element.name;
+              ahref.dataset.channelMembers = element.members;
               const linkText = document.createTextNode(element.name);
               ahref.appendChild(linkText);
               li.appendChild(ahref);
@@ -242,6 +246,9 @@ function loadChatPage() {
                 const li = document.createElement("li");
 
                 const ahref = document.createElement("a");
+                ahref.dataset.channelId = element.id;
+                ahref.dataset.channelName = element.name;
+                ahref.dataset.channelMembers = element.members;
                 const linkText = document.createTextNode(element.name);
                 ahref.appendChild(linkText);
                 li.appendChild(ahref);
@@ -341,20 +348,23 @@ function openModal() {
 /**
  * 已经有channel的情况下,双击public channel 或者 private channel 还可以新增channel
  */
-for (const iter of  channalTitle) {
-  iter.addEventListener("dblclick",(e)=>{
-    showModelDiv();
-    modal = document.getElementById("myModal");
-    closeBtn = document.querySelector(".close");
-    console.log("closeBtn", closeBtn);
-    closeBtn.addEventListener(
-      "click",
-      (e) => {
-        console.log("关闭窗口", e.target);
-        closeModal();
-      },
-      true
-    );
-  },true);
+for (const iter of channalTitle) {
+  iter.addEventListener(
+    "dblclick",
+    (e) => {
+      showModelDiv();
+      modal = document.getElementById("myModal");
+      closeBtn = document.querySelector(".close");
+      console.log("closeBtn", closeBtn);
+      closeBtn.addEventListener(
+        "click",
+        (e) => {
+          console.log("关闭窗口", e.target);
+          closeModal();
+        },
+        true
+      );
+    },
+    true
+  );
 }
-
