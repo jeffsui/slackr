@@ -258,24 +258,24 @@ a:link{
     padding: 20px;
 }
 
-.form-group {
+.add_channel .form-group {
     margin-bottom: 20px;
 }
 
-.form-group label {
+.add_channel .form-group label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-.form-group input {
+.add_channel .form-group input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
 }
 
-.form-group button {
+.add_channel .form-group button {
     width: 100%;
     padding: 10px;
     background-color: purple;
