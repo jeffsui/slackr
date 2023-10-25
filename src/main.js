@@ -222,8 +222,8 @@ function loadChatPage() {
               (item) => item.private == false
             );
             console.log("publicChannelObj:", publicChannelObj);
-
-            publicChannelObj.forEach((element) => {
+            //修改逻辑 先根据id排序,这样按照创建channelid先后顺序显示
+            publicChannelObj.sort((a,b)=>b.id-a.id).forEach((element) => {
               const li = document.createElement("li");
 
               const ahref = document.createElement("a");
@@ -260,10 +260,12 @@ function loadChatPage() {
 
             //如果 私有channel length>0 也用列表形式显示;否则 创建一个按钮 Add Channel
             if (privateChannelObj.length > 0) {
-              privateChannelObj.forEach((element) => {
+              //修改逻辑 先根据id排序,这样按照创建channelId先后顺序显示
+              privateChannelObj.sort((a,b)=> b.id-a.id).forEach((element) => {
                 const li = document.createElement("li");
 
                 const ahref = document.createElement("a");
+                //通过绑定自定义 data-xx属性获取channel 属性,方便后面修改 和 点击事件触发查询
                 ahref.dataset.channelId = element.id;
                 ahref.dataset.channelName = element.name;
                 ahref.dataset.channelMembers = element.members;
