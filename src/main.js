@@ -8,6 +8,7 @@ const registerBtn = document.querySelector("#registerBtn");
 const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
 const mymodelForm = document.querySelector(".mymodelForm");
+const channalTitle = document.querySelectorAll('.channel_title')
 
 let modal = document.getElementById("myModal");
 let closeBtn = document.querySelector(".close");
@@ -136,7 +137,7 @@ mymodelForm.addEventListener("submit", (e) => {
   };
   apiCall("channel", token, {
     name: channalName.value,
-    private: channelType.value !== "private",
+    private: channelType.value !== "public",
     description: channalDescritpion.value,
   });
 });
@@ -336,3 +337,23 @@ function showModelDiv() {
 function openModal() {
   modal.style.display = "block"; // 显示模态框
 }
+/**
+ * 已经有channel的情况下,双击public channel 或者 private channel 还可以新增channel
+ */
+for (const iter of  channalTitle) {
+  iter.addEventListener("dblclick",(e)=>{
+    showModelDiv();
+    modal = document.getElementById("myModal");
+    closeBtn = document.querySelector(".close");
+    console.log("closeBtn", closeBtn);
+    closeBtn.addEventListener(
+      "click",
+      (e) => {
+        console.log("关闭窗口", e.target);
+        closeModal();
+      },
+      true
+    );
+  },true);
+}
+
