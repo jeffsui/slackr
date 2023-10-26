@@ -11,6 +11,7 @@ const mymodelForm = document.querySelector(".mymodelForm");
 const channalTitle = document.querySelectorAll(".channel_title");
 const publicChannel = document.querySelector("#public_channel ul");
 
+
 let modal = document.getElementById("myModal");
 let closeBtn = document.querySelector(".close");
 console.log(registerBtn);
@@ -67,7 +68,8 @@ loginForm.addEventListener("submit", function (e) {
                 alert(data.error);
               } else {
                 console.log("userInfo", data);
-                sessionStorage.setItem("userInfo", data);
+                //sessionStorage存储userInfo,JSON.stringify 将对象字符串化,方便处理
+                sessionStorage.setItem("userInfo", JSON.stringify(data));
                 showPage("chatPage");
               }
             });
@@ -223,19 +225,21 @@ function loadChatPage() {
             );
             console.log("publicChannelObj:", publicChannelObj);
             //修改逻辑 先根据id排序,这样按照创建channelid先后顺序显示
-            publicChannelObj.sort((a,b)=>b.id-a.id).forEach((element) => {
-              const li = document.createElement("li");
+            publicChannelObj
+              .sort((a, b) => b.id - a.id)
+              .forEach((element) => {
+                const li = document.createElement("li");
 
-              const ahref = document.createElement("a");
-              //通过绑定自定义 data-xx属性获取channel 属性,方便后面修改 和 点击事件触发查询
-              ahref.dataset.channelId = element.id;
-              ahref.dataset.channelName = element.name;
-              ahref.dataset.channelMembers = element.members;
-              const linkText = document.createTextNode(element.name);
-              ahref.appendChild(linkText);
-              li.appendChild(ahref);
-              publicChannel.appendChild(li);
-            });
+                const ahref = document.createElement("a");
+                //通过绑定自定义 data-xx属性获取channel 属性,方便后面修改 和 点击事件触发查询
+                ahref.dataset.channelId = element.id;
+                ahref.dataset.channelName = element.name;
+                ahref.dataset.channelMembers = element.members;
+                const linkText = document.createTextNode(element.name);
+                ahref.appendChild(linkText);
+                li.appendChild(ahref);
+                publicChannel.appendChild(li);
+              });
             //渲染 message public channel 基本信息
             const messageChannelInfo = document.querySelector(
               ".message .channel_detail .channel_title_info"
@@ -261,19 +265,21 @@ function loadChatPage() {
             //如果 私有channel length>0 也用列表形式显示;否则 创建一个按钮 Add Channel
             if (privateChannelObj.length > 0) {
               //修改逻辑 先根据id排序,这样按照创建channelId先后顺序显示
-              privateChannelObj.sort((a,b)=> b.id-a.id).forEach((element) => {
-                const li = document.createElement("li");
+              privateChannelObj
+                .sort((a, b) => b.id - a.id)
+                .forEach((element) => {
+                  const li = document.createElement("li");
 
-                const ahref = document.createElement("a");
-                //通过绑定自定义 data-xx属性获取channel 属性,方便后面修改 和 点击事件触发查询
-                ahref.dataset.channelId = element.id;
-                ahref.dataset.channelName = element.name;
-                ahref.dataset.channelMembers = element.members;
-                const linkText = document.createTextNode(element.name);
-                ahref.appendChild(linkText);
-                li.appendChild(ahref);
-                privateChannel.appendChild(li);
-              });
+                  const ahref = document.createElement("a");
+                  //通过绑定自定义 data-xx属性获取channel 属性,方便后面修改 和 点击事件触发查询
+                  ahref.dataset.channelId = element.id;
+                  ahref.dataset.channelName = element.name;
+                  ahref.dataset.channelMembers = element.members;
+                  const linkText = document.createTextNode(element.name);
+                  ahref.appendChild(linkText);
+                  li.appendChild(ahref);
+                  privateChannel.appendChild(li);
+                });
             } else {
               const addChannelBtn = document.createElement("button");
               addChannelBtn.className = "add_channel_btn";
@@ -300,6 +306,18 @@ function loadChatPage() {
                 true
               );
             }
+            const channelItems = document.querySelectorAll("ul li a");
+            channelItems.forEach((item)=>{
+              item.addEventListener("click",(e)=>{
+                    console.log("channel item",e.target);
+                    //获取message里频道内容更新
+                   const currentChannelInfo =  sessionStorage.getItem('currentChannelInfo');
+                   console.log("当前频道信息",currentChannelInfo);
+
+
+              })
+            })
+
             channelSize = data.channels.length;
             loadMessage(data.channels[channelSize - 1].id);
             console.log("load message 完毕");
@@ -330,6 +348,8 @@ function loadMessage(channel_id) {
           alert(data.error);
         } else {
           console.log("channel info", data);
+          //存储该频道信息到sessionStorage,JSON.stringify 将对象字符串化,方便修改和显示
+          sessionStorage.setItem('currentChannelInfo',JSON.stringify(data));
           const messageChannelDetailInfo = document.querySelector(
             ".message .channel_detail .channel_detail_info"
           );
