@@ -7,7 +7,7 @@ body {
   height: 100%;
   font-family: -apple-system, "Open Sans", "Helvetica Neue", sans-serif;
 }
-.banner{
+.banner {
   display: flex;
   align-items: center;
 }
@@ -17,10 +17,8 @@ h1 {
 }
 footer {
   width: 100%;
-   display: flex;
-   align-items: center;
-   flex-direction: row;
-   text-align: center;
+  margin: 0 auto;
+  text-align: center;
 }
 /* contain begin */
 #container {
@@ -41,7 +39,7 @@ footer {
 }
 
 #loginPage {
-  max-width: 400px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 20px;
   background-color: slateblue;
@@ -51,7 +49,7 @@ footer {
 }
 
 #registerPage {
-  max-width: 400px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 20px;
   background-color: slateblue;
@@ -61,11 +59,11 @@ footer {
 }
 
 #chatPage {
-  min-width: 400px;
+  min-width: 600px;
   background-color: slateblue;
   display: flex;
   flex-direction: row;
-  align-items:start;
+  align-items: start;
 }
 
 .form-group {
@@ -138,40 +136,40 @@ a:hover {
 #registerPage.registered {
   display: flex;
 }
-ul li{
+ul li {
   list-style: none;
   height: 30px;
   line-height: 30px;
 }
-ul li:hover{
+ul li:hover {
   background-color: rgb(21, 140, 21);
 }
 /* chat page style */
-a{
+a {
   color: white;
 }
-a:link{
+a:link {
   text-decoration: none;
 }
-#chatPage .channel_title{
-   font-size: 20px;
-   color: white;
-   margin-left: 20px;
+#chatPage .channel_title {
+  font-size: 20px;
+  color: white;
+  margin-left: 20px;
 }
-#chatPage .channel{
+#chatPage .channel {
   flex: 0 0 300px;
-  align-items:first baseline;
+  align-items: first baseline;
 }
-#chatPage .message{
+#chatPage .message {
   flex: 2;
   background-color: #ccc;
 }
-.message .channel_title_info span{
+.message .channel_title_info span {
   font-weight: 700;
   font-size: 30px;
   padding: 100px 0 5px 10px;
 }
-.message .channel_detail_info{
+.message .channel_detail_info {
   font-size: 16px;
   padding-left: 10px;
 }
@@ -207,8 +205,8 @@ a:link{
 
 .card .content .info {
   display: flex;
-  justify-content:flex-start;
-  align-items:flex-start;
+  justify-content: flex-start;
+  align-items: flex-start;
   margin-bottom: 10px;
 }
 
@@ -216,33 +214,251 @@ a:link{
   font-size: 14px;
 }
 
-.card .content .info .username{
+.card .content .info .username {
   font-size: 16px;
   font-weight: bold;
 }
-.card .content .info .time{
+.card .content .info .time {
   padding-left: 3em;
 }
 
-  /* 模态框外层容器 */
-  .modal {
-    display: none;
-    /* 默认隐藏模态框 */
-    position: fixed;
-    /* 固定定位 */
-    z-index: 1;
-    /* 设置堆叠顺序 */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    /* 允许滚动 */
-    background-color: rgba(0, 0, 0, 0.2);
-    /* 背景颜色与透明度 */
+/* 模态框外层容器 */
+.modal {
+  display: none;
+  /* 默认隐藏模态框 */
+  position: fixed;
+  /* 固定定位 */
+  z-index: 1;
+  /* 设置堆叠顺序 */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  /* 允许滚动 */
+  background-color: rgba(0, 0, 0, 0.2);
+  /* 背景颜色与透明度 */
 }
 .model_container {
-    max-width: 800px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add_channel {
+  flex: 1;
+  padding: 20px;
+}
+
+.add_channel .form-group {
+  margin-bottom: 20px;
+}
+
+.add_channel .form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.add_channel .form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.add_channel .form-group button {
+  width: 100%;
+  padding: 10px;
+  background-color: purple;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+/* 关闭按钮 */
+.close {
+  color: #aaa;
+  align-self: flex-end;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+}
+main {
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 1200px) {
+  /* 响应式样式 */
+  #container {
+    max-width: 100%;
+  }
+  #loginPage {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: slateblue;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+  }
+
+  #registerPage {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: slateblue;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+  }
+
+  #chatPage {
+    min-width: 800px;
+    background-color: slateblue;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+  }
+}
+
+
+
+@media screen and (min-width: 992px) and (max-width:1199px) {
+  /* 响应式样式 */
+  #container {
+    max-width: 100%;
+  }
+  #loginPage {
+    max-width: 250px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: slateblue;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+  }
+
+  #registerPage {
+    max-width:500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: slateblue;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+  }
+
+  #chatPage {
+    min-width: 600px;
+    background-color: slateblue;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width:991px) {
+  /* 响应式样式 */
+  #container {
+    max-width: 95%;
+  }
+}
+
+@media screen and (max-width: 767px) and (min-width:480px) {
+  /* 响应式样式 */
+  #container {
+    max-width: 75%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* 响应式样式 */
+  #container {
+    max-width: 100%;
+  }
+  #loginPage {
+    max-width: 250px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: slateblue;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+  }
+
+  #registerPage {
+    max-width: 250px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: slateblue;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+  }
+
+  #chatPage {
+    min-width: 250px;
+    background-color: slateblue;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+  }
+  #chatPage .channel_title {
+    font-size: 20px;
+    color: white;
+    margin-left: 20px;
+  }
+  #chatPage .channel {
+    flex: 0 0 50px;
+    align-items: first baseline;
+  }
+  #chatPage .message {
+    flex: 2;
+    background-color: #ccc;
+  }
+  .card .content {
+    flex: 1;
+    padding-left: 5px;
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: space-between;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1; /* 这里是超出几行省略 */
+    overflow: hidden;
+  }
+  .message .channel_title_info span {
+    font-weight: 700;
+    font-size: 30px;
+    padding: 100px 0 5px 10px;
+  }
+  .model_container {
+    max-width: 200px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
@@ -251,71 +467,6 @@ a:link{
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.add_channel {
-    flex: 1;
-    padding: 20px;
-}
-
-.add_channel .form-group {
-    margin-bottom: 20px;
-}
-
-.add_channel .form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.add_channel .form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-}
-
-.add_channel .form-group button {
-    width: 100%;
-    padding: 10px;
-    background-color: purple;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-}
-
-select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-}
- /* 关闭按钮 */
- .close {
-    color: #aaa;
-    align-self: flex-end;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-}
-main{
-  margin: 0 auto;
-}
-
-@media (max-width: 600px) {
-  /* 响应式样式 */
-  #container {
-    max-width: 100%;
   }
+
 }
